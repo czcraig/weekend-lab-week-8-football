@@ -7,6 +7,8 @@ public class Manager {
     private int age;
     private Team team;
 
+    public Manager(){}
+
     public Manager(String name, int age, Team team) {
 
         this.name = name;
