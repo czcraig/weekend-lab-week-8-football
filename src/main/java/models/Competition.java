@@ -8,7 +8,7 @@ public class Competition {
     private String name;
     private List<Team> teams;
 
-    public Competition(String name, List<Team> teams) {
+    public Competition(String name) {
         this.name = name;
         this.teams = teams;
     }

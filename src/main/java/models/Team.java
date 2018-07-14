@@ -1,28 +1,33 @@
 package models;
 
+import org.hibernate.annotations.Cascade;
+
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "teams")
 public class Team {
 
     private int id;
     private String name;
-    private List<Player> players;
+    private String players;
     private Manager manager;
     private int leaguePosition;
-    private int points;
-    private List<Competition> competitions;
+    private String competitions;
 
     public Team(){}
 
-    public Team(String name, List<Player> players, Manager manager, int leaguePosition, int points, List<Competition> competitions) {
+    public Team(String name, String players,Manager manager, int leaguePosition, String competitions) {
         this.name = name;
-        this.players = players;
         this.manager = manager;
         this.leaguePosition = leaguePosition;
-        this.points = points;
-        this.competitions = competitions;
+        this.players = players;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -31,6 +36,7 @@ public class Team {
         this.id = id;
     }
 
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -39,14 +45,17 @@ public class Team {
         this.name = name;
     }
 
-    public List<Player> getPlayers() {
+    @Column(name = "player")
+    public String getPlayers() {
         return players;
     }
 
-    public void setPlayers(List<Player> players) {
+    public void setPlayers(String players) {
         this.players = players;
     }
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "manager_id", nullable = false)
     public Manager getManager() {
         return manager;
     }
@@ -55,6 +64,7 @@ public class Team {
         this.manager = manager;
     }
 
+    @Column(name = "league_position")
     public int getLeaguePosition() {
         return leaguePosition;
     }
@@ -63,19 +73,13 @@ public class Team {
         this.leaguePosition = leaguePosition;
     }
 
-    public int getPoints() {
-        return points;
-    }
 
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    public List<Competition> getCompetitions() {
+    @Column(name = "competition")
+    public String getCompetitions() {
         return competitions;
     }
 
-    public void setCompetitions(List<Competition> competitions) {
+    public void setCompetitions(String competitions) {
         this.competitions = competitions;
     }
 
