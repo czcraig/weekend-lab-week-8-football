@@ -11,18 +11,18 @@ public class Team {
 
     private int id;
     private String name;
-    private String players;
+    private List<Player> players;
     private Manager manager;
     private int leaguePosition;
     private String competitions;
 
     public Team(){}
 
-    public Team(String name, String players,Manager manager, int leaguePosition, String competitions) {
+    public Team(String name,Manager manager, int leaguePosition, String competitions) {
         this.name = name;
         this.manager = manager;
         this.leaguePosition = leaguePosition;
-        this.players = players;
+
     }
 
     @Id
@@ -45,12 +45,12 @@ public class Team {
         this.name = name;
     }
 
-    @Column(name = "player")
-    public String getPlayers() {
+    @OneToOne(mappedBy = "player", fetch = FetchType.LAZY)
+    public List<Player> getPlayers() {
         return players;
     }
 
-    public void setPlayers(String players) {
+    public void setPlayers(List<Player> players) {
         this.players = players;
     }
 
