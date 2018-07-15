@@ -1,3 +1,4 @@
+import db.DBCompetition;
 import db.DBHelper;
 import db.DBTeam;
 import models.Competition;
@@ -14,8 +15,13 @@ public class Runner {
         Manager manager = new Manager("Brendan Rodgers", 53);
         DBHelper.save(manager);
 
-        Team team = new Team("Celtic", manager, 1, "SPL");
+        Manager manager2 = new Manager("Neil Lennon", 43);
+        DBHelper.save(manager2);
+
+        Team team = new Team("Celtic", manager, 1);
         DBHelper.save(team);
+
+        Team team2 = new Team("Hibernian", manager2, 2);
 
 
         Player player1 = new Player("Henrik Larsson", 35, "Striker", team);
@@ -30,11 +36,16 @@ public class Runner {
         Competition competition2 = new Competition("Champs League");
         DBHelper.save(competition2);
 
+        DBTeam.addTeamToCompetition(team, competition);
+        DBTeam.addTeamToCompetition(team2,competition);
+
 
 
         Manager celticManager = DBTeam.getManager(team);
 
         List<Player> playersInCelticTeam = DBTeam.getPlayersForTeam(team);
+
+        List<Team> teams = DBCompetition.getTeamsCompetitions(competition);
 
 
 

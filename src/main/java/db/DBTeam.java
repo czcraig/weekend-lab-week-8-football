@@ -1,5 +1,6 @@
 package db;
 
+import models.Competition;
 import models.Manager;
 import models.Player;
 import models.Team;
@@ -32,7 +33,7 @@ public class DBTeam {
 
     public static List<Player> getPlayersForTeam(Team team) {
         session = HibernateUtil.getSessionFactory().openSession();
-        List<Player> results = null;
+        List results = null;
         try {
             Criteria cr = session.createCriteria(Player.class);
             cr.add(Restrictions.eq("team", team));
@@ -43,5 +44,11 @@ public class DBTeam {
             session.close();
         }
         return results;
+    }
+
+    public static void addTeamToCompetition(Team team, Competition competition){
+        team.addCompetion(competition);
+        competition.addTeam(team);
+        DBHelper.update(team);
     }
 }
