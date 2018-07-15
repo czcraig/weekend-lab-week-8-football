@@ -45,7 +45,7 @@ public class Team {
         this.name = name;
     }
 
-    @OneToOne(mappedBy = "player", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
     public List<Player> getPlayers() {
         return players;
     }
@@ -82,6 +82,12 @@ public class Team {
     public void setCompetitions(String competitions) {
         this.competitions = competitions;
     }
+
+    public void addPlayer(Player player){
+        this.players.add(player);
+    }
+
+
 
 
 

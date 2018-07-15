@@ -14,10 +14,14 @@ public class Runner {
         Manager manager = new Manager("Brendan Rodgers", 53);
         DBHelper.save(manager);
 
-        Player player1 = new Player("Henrik Larsson", 35, "Striker");
+        Team team = new Team("Celtic", manager, 1, "SPL");
+        DBHelper.save(team);
+
+
+        Player player1 = new Player("Henrik Larsson", 35, "Striker", team);
         DBHelper.save(player1);
 
-        Player player2 = new Player("Lubo Marvchik", 35, "Attacking midfielder");
+        Player player2 = new Player("Lubo Marvchik", 35, "Attacking midfielder", team);
         DBHelper.save(player2);
 
         Competition competition = new Competition("SPL");
@@ -26,10 +30,11 @@ public class Runner {
         Competition competition2 = new Competition("Champs League");
         DBHelper.save(competition2);
 
-        Team team = new Team("Celtic", "players", manager, 1, "SPL");
-        DBHelper.save(team);
+
 
         Manager celticManager = DBTeam.getManager(team);
+
+        List<Player> playersInCelticTeam = DBTeam.getPlayersForTeam(team);
 
 
 

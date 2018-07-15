@@ -2,24 +2,29 @@ package models;
 
 import javax.persistence.*;
 
+@Entity
+@Table(name = "players")
 public class Player {
 
     private int id;
     private String name;
     private int age;
     private String position;
-    private Manager manager;
+    private Team team;
 
     public Player(){}
 
-    public Player(String name, int age, String poisition) {
+    public Player(String name, int age, String position, Team team) {
         this.name = name;
         this.age = age;
-        this.position = poisition;
-        this.manager = manager;
+        this.position = position;
+        this.team = team;
     }
 
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -29,6 +34,7 @@ public class Player {
     }
 
 
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -38,6 +44,7 @@ public class Player {
     }
 
 
+    @Column(name = "age")
     public int getAge() {
         return age;
     }
@@ -47,35 +54,24 @@ public class Player {
     }
 
 
-    public String getPoisition() {
+    @Column(name = "position")
+    public String getPosition() {
         return position;
     }
 
-    public void setPoisition(String poisition) {
-        this.position = poisition;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
 
 
-    public Manager getManager() {
-        return manager;
+    @ManyToOne
+    @JoinColumn(name = "team_id", nullable = false)
+    public Team getTeam(){
+        return  team;
     }
 
-    public void setManager(Manager manager) {
-        this.manager = manager;
+    public void setTeam(Team team) {
+        this.team = team;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
