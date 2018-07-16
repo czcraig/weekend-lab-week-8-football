@@ -21,7 +21,7 @@ public class DBTeam {
 
         try{
             Criteria cr = session.createCriteria(Manager.class);
-            cr.add(Restrictions.eq("team", team));
+            cr.add(Restrictions.eq("id", team.getManager().getId()));
             manager = (Manager)cr.uniqueResult();
         } catch (HibernateException e){
             e.printStackTrace();
@@ -31,7 +31,13 @@ public class DBTeam {
         return manager;
     }
 
-    public static List<Player> getPlayersForTeam(Team team) {
+    public static void addTeamToCompetition(Team team, Competition competition){
+        team.addCompetition(competition);
+        competition.addTeam(team);
+        DBHelper.update(team);
+    }
+
+    public static List getPlayersForTeam(Team team) {
         session = HibernateUtil.getSessionFactory().openSession();
         List results = null;
         try {
@@ -44,11 +50,24 @@ public class DBTeam {
             session.close();
         }
         return results;
+
+
     }
 
-    public static void addTeamToCompetition(Team team, Competition competition){
-        team.addCompetion(competition);
-        competition.addTeam(team);
-        DBHelper.update(team);
+    public static List <Competition> getCompetitionFromTeam(Team team){
+        List<Competition> results = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Criteria cr = session.createCriteria(Team.class);
+            cr.createAlias("teams", "team");
+            cr.add(Restrictions.eq("team.id", team.getId()));
+            results = cr.list();
+        } catch (HibernateException ex){
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return results;
+
     }
 }

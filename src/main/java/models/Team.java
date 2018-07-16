@@ -89,7 +89,7 @@ public class Team {
         this.competitions = competitions;
     }
 
-    public void addCompetion(Competition competition){
+    public void addCompetition(Competition competition){
         this.competitions.add(competition);
     }
 
